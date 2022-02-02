@@ -3,8 +3,8 @@
 /* eslint-disable class-methods-use-this */
 
 import { inject, injectable } from 'tsyringe';
-import { AppError } from '../../../../errors/AppError';
-import { ISpecifcationsRepository } from '../../repositories/ISpecificationsRepository';
+import { AppError } from '@shared/errors/AppError';
+import { ISpecifcationsRepository } from '@modules/cars/repositories/ISpecificationsRepository';
 
 interface IRequest {
   name: string;
@@ -16,7 +16,7 @@ class CreateSpecificationUseCase {
   constructor(
     @inject('SpecificationsRepository')
     private specifcationsRepository: ISpecifcationsRepository,
-  ) {}
+  ) { }
 
   async execute({ name, description }: IRequest): Promise<void> {
     const specAlreadyExists = await this.specifcationsRepository.findByName(
