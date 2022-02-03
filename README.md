@@ -6,7 +6,6 @@ Deve ser possivel listar todas as categorias.
 
 **RN**
 Nao deve ser possivel cadastrar um carro com uma placa ja existente.
-Nao deve ser possivel alterar  a placa de um carro ja cadastrado.
 O carro deve ser cadastrado, por padrao, com disponibilidade.
 O usuario responsavel pelo cadastro deve ser um usuario administrador.
 
