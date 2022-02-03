@@ -13,7 +13,7 @@ class CreateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private userRepository: IUsersRepository,
-  ) { }
+  ) {}
 
   async execute({
     name,
