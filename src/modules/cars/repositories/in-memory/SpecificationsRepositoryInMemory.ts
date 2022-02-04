@@ -1,0 +1,34 @@
+/* eslint-disable import/prefer-default-export */
+import { Specification } from '@modules/cars/infra/typeorm/entities/Specification';
+import {
+  ICreateSpecificationDTO,
+  ISpecifcationsRepository,
+} from '../ISpecificationsRepository';
+
+class SpecificationsRepositoryInMemory implements ISpecifcationsRepository {
+  specifications: Specification[] = [];
+
+  async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
+    const specification = new Specification();
+
+    Object.assign(specification, {
+      name,
+      description,
+    });
+
+    this.specifications.push(specification);
+  }
+
+  async findByName(name: string): Promise<Specification> {
+    return this.specifications.find(spec => spec.name === name);
+  }
+
+  async findByIds(ids: string[]): Promise<Specification[]> {
+    const allSpecifications = this.specifications.filter(spec =>
+      ids.includes(spec.id),
+    );
+    return allSpecifications;
+  }
+}
+
+export { SpecificationsRepositoryInMemory };
