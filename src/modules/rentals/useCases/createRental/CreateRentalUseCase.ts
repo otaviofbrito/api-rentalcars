@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable camelcase */
 /* eslint-disable no-useless-constructor */
+import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental';
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository';
 import { AppError } from '@shared/errors/AppError';
 
@@ -17,7 +18,7 @@ class CreateRentalUseCase {
     user_id,
     car_id,
     expected_return_date,
-  }: IRequest): Promise<void> {
+  }: IRequest): Promise<Rental> {
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
       car_id,
     );
@@ -31,8 +32,16 @@ class CreateRentalUseCase {
     );
 
     if (rentalOpenToUser) {
-      throw new AppError('User already has a rental in progress!');
+      throw new AppError('User already have a rental in progress!');
     }
+
+    const rental = await this.rentalsRepository.create({
+      user_id,
+      car_id,
+      expected_return_date,
+    });
+
+    return rental;
   }
 }
 
